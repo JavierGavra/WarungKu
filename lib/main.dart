@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:warung_ku/features/transaction/views/pages/transaction_page.dart';
+import 'package:warung_ku/hello_world_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const TransactionPage(),
+      home: const HelloWorldPage(),
     );
   }
 }
