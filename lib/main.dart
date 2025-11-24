@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:warung_ku/hello_world_page.dart';
+import 'package:warung_ku/features/sales_summary/views/sales_summary_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HelloWorldPage(),
+      home: const SalesSummaryPage(),
     );
   }
 }
