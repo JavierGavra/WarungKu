@@ -57,15 +57,6 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
     if (wasOffline && isOnline) {
       await sync.sync();
       await loadProducts();
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Tersambung kembali — data berhasil disinkron!"),
-            backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
     }
   }
 
@@ -102,7 +93,7 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Icon(
-              isOnline ? Icons.check_circle : Icons.cancel,
+              isOnline ? Icons.cloud_done : Icons.cloud_off,
               color: isOnline ? Colors.green : Colors.red,
             ),
           ),
