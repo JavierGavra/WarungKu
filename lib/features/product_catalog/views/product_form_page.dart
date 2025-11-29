@@ -19,15 +19,17 @@ class _ProductFormPageState extends State<ProductFormPage> {
   late TextEditingController nama;
   late TextEditingController harga;
   late TextEditingController stok;
+  late TextEditingController barcode;
 
   @override
   void initState() {
     super.initState();
     nama = TextEditingController(text: widget.product?.nama ?? "");
-    harga = TextEditingController(
-        text: widget.product?.harga.toString() ?? "");
-    stok = TextEditingController(
-        text: widget.product?.stok.toString() ?? "");
+    harga = TextEditingController(text: widget.product?.harga.toString() ?? "");
+    stok = TextEditingController(text: widget.product?.stok.toString() ?? "");
+    barcode = TextEditingController(
+      text: widget.product?.barcode.toString() ?? "",
+    );
   }
 
   Future<void> save() async {
@@ -40,6 +42,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
       nama: nama.text,
       harga: int.parse(harga.text),
       stok: int.parse(stok.text),
+      barcode: barcode.text,
       updatedAt: now,
       isDeleted: false,
       isLocal: true, // perubahan dari device
@@ -58,34 +61,41 @@ class _ProductFormPageState extends State<ProductFormPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Form(
           key: _formKey,
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text(widget.product == null
-                ? "Tambah Produk"
-                : "Edit Produk"),
-            TextFormField(
-              controller: nama,
-              decoration: const InputDecoration(labelText: "Nama Produk"),
-              validator: (v) => v!.isEmpty ? "Wajib diisi" : null,
-            ),
-            TextFormField(
-              controller: harga,
-              decoration: const InputDecoration(labelText: "Harga"),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              controller: stok,
-              decoration: const InputDecoration(labelText: "Stok"),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: save, child: Text("Simpan"))
-          ]),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(widget.product == null ? "Tambah Produk" : "Edit Produk"),
+              TextFormField(
+                controller: nama,
+                decoration: const InputDecoration(labelText: "Nama Produk"),
+                validator: (v) => v!.isEmpty ? "Wajib diisi" : null,
+              ),
+              TextFormField(
+                controller: harga,
+                decoration: const InputDecoration(labelText: "Harga"),
+                keyboardType: TextInputType.number,
+              ),
+              TextFormField(
+                controller: stok,
+                decoration: const InputDecoration(labelText: "Stok"),
+                keyboardType: TextInputType.number,
+              ),
+              TextFormField(
+                controller: barcode,
+                decoration: const InputDecoration(labelText: "Barcode"),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(onPressed: save, child: Text("Simpan")),
+            ],
+          ),
         ),
       ),
     );

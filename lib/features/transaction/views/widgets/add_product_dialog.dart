@@ -16,7 +16,7 @@ Future<void> addProductDialog({
       return StatefulBuilder(
         builder: (context, setModal) {
           return Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -34,14 +34,12 @@ Future<void> addProductDialog({
                   items: productList.map((p) {
                     return DropdownMenuItem(
                       value: p,
-                      child: Text("${p.name} - Rp ${p.price}"),
+                      child: Text("${p.nama} - Rp ${p.harga}"),
                     );
                   }).toList(),
                   onChanged: (value) => setModal(() => selectedProduct = value),
                 ),
-
-                const SizedBox(height: 20),
-
+                const SizedBox(height: 6),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -63,10 +61,8 @@ Future<void> addProductDialog({
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 25),
-
-                ElevatedButton(
+                const SizedBox(height: 12),
+                FilledButton(
                   onPressed: selectedProduct == null
                       ? null
                       : () {
@@ -81,6 +77,7 @@ Future<void> addProductDialog({
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
+                const SizedBox(height: 12),
               ],
             ),
           );

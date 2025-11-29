@@ -23,8 +23,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
 
     // Cari produk berdasarkan barcode
     final Product foundProduct = widget.productList.firstWhere(
-      (p) => p.barcode == barcode,
-      orElse: () => Product(id: -1, name: "", price: 0, barcode: ""),
+      (p) => p.barcode == barcode
     );
 
     if (foundProduct.id == -1) {

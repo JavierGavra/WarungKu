@@ -19,8 +19,9 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
   final sync = ProductSyncService();
 
   List<Product> products = [];
-  bool isOnline = false;
   StreamSubscription? connectionSub;
+  bool isLoading = true;
+  bool isOnline = false;
 
   @override
   void initState() {
@@ -57,21 +58,13 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
     if (wasOffline && isOnline) {
       await sync.sync();
       await loadProducts();
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Tersambung kembali — data berhasil disinkron!"),
-            backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
     }
   }
 
   Future<void> loadProducts() async {
+    setState(() => isLoading = true);
     products = await repo.getLocalProducts();
-    setState(() {});
+    setState(() => isLoading = false);
   }
 
   Future<void> handleRefresh() async {
@@ -102,7 +95,7 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Icon(
-              isOnline ? Icons.check_circle : Icons.cancel,
+              isOnline ? Icons.cloud_done : Icons.cloud_off,
               color: isOnline ? Colors.green : Colors.red,
             ),
           ),
@@ -114,7 +107,12 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
       ),
       body: RefreshIndicator(
         onRefresh: handleRefresh,
-        child: products.isEmpty
+        child: isLoading
+            ? FractionallySizedBox(
+                heightFactor: 0.83,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            : products.isEmpty
             ? ListView(
                 physics: AlwaysScrollableScrollPhysics(),
                 children: [

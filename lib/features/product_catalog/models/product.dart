@@ -3,6 +3,7 @@ class Product {
   final String nama;
   final int harga;
   final int stok;
+  final String barcode;
   final String? image;
   final DateTime updatedAt;
   final bool isDeleted;
@@ -13,6 +14,7 @@ class Product {
     required this.nama,
     required this.harga,
     required this.stok,
+    required this.barcode,
     this.image,
     required this.updatedAt,
     required this.isDeleted,
@@ -24,6 +26,7 @@ class Product {
     'nama': nama,
     'harga': harga,
     'stok': stok,
+    'barcode': barcode,
     'image': image,
     'updated_at': updatedAt.toIso8601String(),
     'is_deleted': isDeleted ? 1 : 0,
@@ -35,6 +38,7 @@ class Product {
     nama: map['nama'],
     harga: map['harga'],
     stok: map['stok'],
+    barcode: map['barcode'],
     image: map['image'],
     updatedAt: DateTime.parse(map['updated_at']),
     isDeleted: map['is_deleted'] == 1,
@@ -46,6 +50,7 @@ class Product {
     String? nama,
     int? harga,
     int? stok,
+    String? barcode,
     String? image,
     DateTime? updatedAt,
     bool? isDeleted,
@@ -56,6 +61,7 @@ class Product {
       nama: nama ?? this.nama,
       harga: harga ?? this.harga,
       stok: stok ?? this.stok,
+      barcode: barcode ?? this.barcode,
       image: image ?? this.image,
       updatedAt: updatedAt ?? this.updatedAt,
       isDeleted: isDeleted ?? this.isDeleted,

@@ -10,7 +10,7 @@ class LocalService {
 
   Future<Database> get database async {
     if (_db != null) return _db!;
-    _db = await _initDB('products.db');
+    _db = await _initDB('warungku.db');
     return _db!;
   }
 
@@ -28,6 +28,7 @@ class LocalService {
         nama TEXT NOT NULL,
         harga INTEGER NOT NULL,
         stok INTEGER NOT NULL,
+        barcode TEXT NOT NULL,
         image TEXT,
         updated_at TEXT NOT NULL,
         is_deleted INTEGER NOT NULL DEFAULT 0,
