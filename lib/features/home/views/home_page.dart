@@ -180,7 +180,17 @@ class HomePage extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const SalesSummaryPage(),
+                        builder: (_) => const SalesSummaryPage(
+                          omzetHariIni:
+                              1250000, // ganti dengan data nyata dari model atau API
+                          perubahanOmzet: 5.2, // persentase perubahan
+                          totalTransaksi: 12,
+                          totalItemTerjual: 34,
+                          produkTerlaris: 'Nasi Goreng Spesial',
+                          jumlahTerlaris: 10,
+                          gambarTerlaris:
+                              'https://example.com/image.png', // optional
+                        ),
                       ),
                     ),
                   ),
