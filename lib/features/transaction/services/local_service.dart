@@ -19,11 +19,7 @@ class LocalService {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -91,9 +87,7 @@ class LocalService {
 
   // ===================== TRANSACTIONS =====================
 
-  Future<void> createTransaction({
-    required Map<Product, int> cart,
-  }) async {
+  Future<String> createTransaction({required Map<Product, int> cart}) async {
     final db = await database;
     final trxId = const Uuid().v4();
     int total = 0;
@@ -123,5 +117,13 @@ class LocalService {
 
       await updateProductStock(p, qty);
     }
+
+    return trxId;
+  }
+
+  Future<int> amountOfTransaction() async {
+    final db = await database;
+    final x = await db.query('transactions');
+    return x.length;
   }
 }

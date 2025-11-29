@@ -19,8 +19,9 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
   final sync = ProductSyncService();
 
   List<Product> products = [];
-  bool isOnline = false;
   StreamSubscription? connectionSub;
+  bool isLoading = true;
+  bool isOnline = false;
 
   @override
   void initState() {
@@ -61,8 +62,9 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
   }
 
   Future<void> loadProducts() async {
+    setState(() => isLoading = true);
     products = await repo.getLocalProducts();
-    setState(() {});
+    setState(() => isLoading = false);
   }
 
   Future<void> handleRefresh() async {
@@ -105,7 +107,12 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
       ),
       body: RefreshIndicator(
         onRefresh: handleRefresh,
-        child: products.isEmpty
+        child: isLoading
+            ? FractionallySizedBox(
+                heightFactor: 0.83,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            : products.isEmpty
             ? ListView(
                 physics: AlwaysScrollableScrollPhysics(),
                 children: [
